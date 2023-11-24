@@ -8,15 +8,19 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode lightAttack = KeyCode.Mouse0;
     public KeyCode heavyAttack = KeyCode.Mouse1;
     public KeyCode jump = KeyCode.Space;
+    public KeyCode rangedAttack = KeyCode.E;
     public string xMoveAxis = "Horizontal";
 
     Animator m_animator;
     private Rigidbody2D rb2;
     private bool attemptJump = false;
     private bool attempLAttack = false;
+    private bool attemptRangedAttack = false;
     private bool attemptHAttack = false;
     private float moveIntentionX = 0;
+    private float timeUntilShurkienReadied = 0;
     private float timeUntilMeleeReadied = 0;
+
 
 
     public float speed;
@@ -25,9 +29,12 @@ public class PlayerMovement : MonoBehaviour
 
 
     public Transform attackOrigin = null;
+    public Transform rangedAttackOrigin = null;
+    public GameObject shurkien = null;
     public float attackRadius = 0.6f;
     public float damage = 2f;
     public float attackDelay = 1f;
+    public float rangedAttackdelay = 0.3f;
     public LayerMask enemyLayer = 8;
    
     void Start()
@@ -44,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         GetInput();
         HandleJump();
         HandleAttack();
+        HandleRangedAttack();
     }
 
     void FixedUpdate()
@@ -65,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         attemptHAttack = Input.GetKeyDown(heavyAttack);
         attempLAttack = Input.GetKeyDown(lightAttack);
         attemptJump = Input.GetKeyDown(jump);
+        attemptRangedAttack = Input.GetKeyDown(rangedAttack);
 
     }
 
@@ -95,6 +104,22 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             timeUntilMeleeReadied -= Time.deltaTime;
+        }
+    }
+
+    private void HandleRangedAttack()
+    {
+        if (attemptRangedAttack && timeUntilShurkienReadied <= 0)
+        {
+            Debug.Log("attempting ranged attack");
+
+            Instantiate(shurkien , rangedAttackOrigin.position, rangedAttackOrigin.rotation);
+
+            timeUntilShurkienReadied = rangedAttackdelay;
+        }
+        else
+        {
+            timeUntilShurkienReadied -= Time.deltaTime;
         }
     }
 
