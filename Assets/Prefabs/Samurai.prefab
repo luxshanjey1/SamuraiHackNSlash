@@ -188,14 +188,20 @@ MonoBehaviour:
   lightAttack: 323
   heavyAttack: 324
   jump: 32
+  rangedAttack: 101
+  roll: 113
   xMoveAxis: Horizontal
+  healthPool: 5
   speed: 5
-  jumpForce: 5
+  jumpForce: 7
   groundLeeway: 0
   attackOrigin: {fileID: 0}
+  rangedAttackOrigin: {fileID: 0}
+  shurkien: {fileID: 0}
   attackRadius: 0.6
   damage: 2
   attackDelay: 1
+  rangedAttackdelay: 0.3
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0

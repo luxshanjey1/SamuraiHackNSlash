@@ -5,13 +5,20 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public Rigidbody2D rb2 =  null;
+    public CircleCollider2D circle;
+    private bool hit;
     public float speed = 15f;
-    public float damage = 0.5f;
+    public float damage = 1f;
     public float delaySeconds = 3f;
 
 
     private WaitForSeconds cullDelay = null;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        circle = GetComponent<CircleCollider2D>();
+    }
     void Start()
     {
         cullDelay = new WaitForSeconds(delaySeconds);
@@ -22,24 +29,19 @@ public class Projectile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
+        if (hit) return;
     }
 
-    void OnTriggerEnter2d(Collider other) 
+    private void OnTriggerEnter2D(Collider2D other) 
     { 
-        if(GetComponent<Collider>().gameObject.layer == 8)
+        if(other.tag == "Enemy")
         {
-            IDamagable enemyAttributes = GetComponent<Collider>().GetComponent<IDamagable>();
-            if(enemyAttributes != null)
-            {
-                enemyAttributes.applyDamage(damage);
-
-            }
-
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+            Debug.Log("INSIDE");
+            hit = true;
+            circle.enabled = false;
+            other.GetComponent<Health>().TakeDamage(1);
         }
     }
 
