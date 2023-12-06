@@ -22,12 +22,17 @@ public class Menu : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverScreen.SetActive(true);
+        //gameOverScreen.SetActive(true);
     }
 
     public void PlayGame()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void LeaderBoard()
+    {
+        SceneManager.LoadScene(4);
     }
 
     public void Restart()

@@ -16,7 +16,7 @@ public class Portal : MonoBehaviour
             }
             if (gameObject.tag == "Portal2") 
             {
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(3);
 
             }
 
